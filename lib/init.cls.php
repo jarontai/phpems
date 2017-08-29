@@ -32,7 +32,7 @@ class ginkgo
 	public $L = array();
 	public $I = array('app'=>array(),'core'=>array());
 	public $app;
-	public $defaultApp = 'exam';
+	public $defaultApp = 'test';
 
 	public function __construct()
 	{
