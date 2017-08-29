@@ -1,6 +1,6 @@
 {
     "require": {
-        "monolog/monolog": "^1.23"
+        "m1/env": "^2.1"
     },
     "repositories": {
         "packagist": {
