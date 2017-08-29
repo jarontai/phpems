@@ -115,6 +115,12 @@ class action extends app
 		else header("location:".'index.php?exam-api-login&checkyes=1&sign='.$sign.'&userid='.$userid.'&username='.$username.'&useremail='.$useremail.'&ts='.$ts);
 		exit(0);
 	}
+
+	public function login()
+	{
+		echo 'login';
+		exit;
+	}
 }
 
 

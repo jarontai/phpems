@@ -1,9 +1,8 @@
-this is test
 
 <br />
 
 {x2;$test}
 
 <div>
-index div
+test -> app -> index template
 </div>
