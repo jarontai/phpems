@@ -1,6 +1,7 @@
 {
     "require": {
-        "m1/env": "^2.1"
+        "m1/env": "^2.1",
+        "firebase/php-jwt": "^5.0"
     },
     "repositories": {
         "packagist": {
