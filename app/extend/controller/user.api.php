@@ -6,6 +6,7 @@
  */
 
 use M1\Env\Parser;
+use \Firebase\JWT\JWT;
 
 class action extends app
 {
@@ -16,16 +17,32 @@ class action extends app
 		exit;
 	}
 
-	private function fetchKey()
+	private function fetchEnv() {
+		if ($this->env) {
+			$env = $this->env;
+		}
+		else 
+		{
+			$env = Parser::parse(file_get_contents('.env'));
+			$this->env = $env;
+		}
+		return $env;
+	}
+
+	private function fetchApiKey()
+	{	
+		return $this->fetchEnv['EXTEND_API_KEY'];
+	}
+
+	private function fetchJwtKey()
 	{
-		$env = Parser::parse(file_get_contents('.env'));
-		return $env['EXTEND_API_KEY'];
+		return $this->fetchEnv['EXTEND_JWT_KEY'];
 	}
 
 	// 用户注册
 	private function register()
 	{
-		$key = $this->fetchKey(); //密钥，需修改双方一致
+		$key = $this->fetchApiKey(); //密钥，需修改双方一致
 		$sign = $this->ev->get('sign');
 		$username = $this->ev->get('username');
 		$timestamp = $this->ev->get('timestamp');
@@ -75,11 +92,23 @@ class action extends app
 	private function test()
 	{
 		$username = 'jarontest';
-		$key = $this->fetchKey(); //密钥，需修改双方一致
+		$key = $this->fetchApiKey(); //密钥，需修改双方一致
 		$timestamp = TIME;
 		$sign = md5($username . $key . $timestamp);
 		$result = array('username' => $username, 'timestamp' => $timestamp, 'sign' => $sign);
 		$result['params'] = '&'.http_build_query($result);
+
+		// 生成jwt cookie
+		$key = $this->fetchJwtKey();
+		$token = array(
+			"username" => $username,
+			"iat" => $timestamp,
+			"exp" => $timestamp + 86400
+		);
+		$jwt = JWT::encode($token, $key);
+		$this->ev->setCookie('jwt', $jwt);
+		$result['jwt'] = $jwt;
+
 		header('Content-type: application/json');
 		exit(json_encode($result));
 	}
