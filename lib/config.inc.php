@@ -1,4 +1,7 @@
 <?php
+use M1\Env\Parser;
+
+$env = Parser::parse(file_get_contents('.env'));
 
 define('DOMAINTYPE','off');
 define('CH','exam_');
@@ -15,10 +18,10 @@ define('WP','http://'.$_SERVER['SERVER_NAME'].dirname($_SERVER['SCRIPT_NAME']));
 else
 define('WP','http://'.$_SERVER['SERVER_NAME'].'/');
 
-define('DB','phpems');//MYSQL数据库名
-define('DH','localhost');//MYSQL主机名，不用改
-define('DU','root');//MYSQL数据库用户名
-define('DP','root');//MYSQL数据库用户密码
+define('DB', $env['DB_NAME'] ? $env['DB_NAME'] : 'phpems');//MYSQL数据库名
+define('DH', $env['DB_HOST'] ? $env['DB_HOST'] : 'localhost');//MYSQL主机名，不用改
+define('DU', $env['DB_USER'] ? $env['DB_USER'] : 'root');//MYSQL数据库用户名
+define('DP', $env['DB_PWD'] ? $env['DB_PWD'] : '');//MYSQL数据库用户密码
 define('DTH','x2_');//系统表前缀，不用改
 
 define('WXAPPID','wx0f2a632abf082e60');
