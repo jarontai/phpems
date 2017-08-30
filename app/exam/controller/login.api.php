@@ -5,8 +5,6 @@
  * To change the template for this generated file go to
  * Window - Preferences - PHPeclipse - PHP - Code Templates
  */
-use M1\Env\Parser;
-
 class action extends app
 {
 	public function display()
@@ -72,7 +70,7 @@ class action extends app
 
 	private function index()
 	{
-		$this->sc = action::fetchLoginKey(); //密钥，需修改双方一致 		
+		$this->sc = 'JOAa4HeKdq52b7jJZYXo';//密钥，需修改双方一致
 		$sign = $this->ev->get('sign');
 		$userid = $this->ev->get('userid');
 		$username = $this->ev->get('username');
@@ -116,23 +114,6 @@ class action extends app
 		}
 		else header("location:".'index.php?exam-api-login&checkyes=1&sign='.$sign.'&userid='.$userid.'&username='.$username.'&useremail='.$useremail.'&ts='.$ts);
 		exit(0);
-	}
-	
-	public static function fetchLoginKey()
-	{
-		$env = Parser::parse(file_get_contents('.env'));
-		return $env['EXAM_API_LOGIN_KEY'];
-	}
-
-	public function test()
-	{
-		$this->sc = action::fetchLoginKey(); //密钥，需修改双方一致 
-		$userid = 100;
-		$username = "jarontest";
-		$useremail = "test@126.com";
-		$ts = TIME;
-		$sign = md5($userid . $username . $useremail . $this->sc . $ts);
-		echo '<a href="index.php?exam-api-login&sign=' . $sign . '&userid=' . $userid . '&username=' . $username . '&useremail=' . $useremail . '&ts=' . $ts . '">用户直接登录</a>'; 
 	}
 }
 
