@@ -13,3 +13,6 @@
 data
 
 .env
+
+# rest client
+*.http
