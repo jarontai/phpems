@@ -68,7 +68,7 @@ class action extends app
 	// 测试
 	private function test()
 	{
-		$username = 'jarontest';
+		$username = 'peadmin';
 		$key = $this->helper->fetchApiKey(); //密钥，需修改双方一致
 		$timestamp = TIME;
 		$sign = md5($username . $key . $timestamp);

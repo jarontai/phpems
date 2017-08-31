@@ -18,7 +18,7 @@ class session_extend extends session
 
         if ($this->isLogout()) {
             // 如果手动退出则清除jwt cookie
-            $this->ev->setCookie($this->cookieName, '');
+            $this->ev->setCookie($this->cookieName, '', 0);
         }
         else {
             if (!$user) {
@@ -29,8 +29,7 @@ class session_extend extends session
                     $key = $helper->fetchJwtKey();
                     $payload = (array)JWT::decode($jwt, $key, array('HS256'));
                     $username = $payload['username'];
-                    $user = $this->G->make('user', 'user');
-                    $u = $user->getUserByUserName($username);
+                    $u = $this->getUserByUserName($username);
                     if ($username && $u) {
                         $args = array('sessionuserid' => $u['userid'], 'sessionpassword' => $u['userpassword'], 'sessionip' => $this->ev->getClientIp(), 'sessiongroupid' => $u['usergroupid'], 'sessionlogintime' => TIME, 'sessionusername' => $u['username']);
                         $this->setSessionUser($args);
@@ -49,6 +48,13 @@ class session_extend extends session
             return true;
         }
         return false;
+    }
+
+    private function getUserByUserName($username)
+    {
+        $data = array(false, array('user', 'user_group'), array(array('AND', "user.username = :username", 'username', $username), array('AND', 'user.usergroupid = user_group.groupid')));
+        $sql = $this->pdosql->makeSelect($data);
+        return $this->db->fetch($sql, array('userinfo', 'groupright'));
     }
 }
 
