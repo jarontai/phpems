@@ -13,6 +13,7 @@
 * 添加了扩展应用 - app/extend
 * 引入了Composer
 * 添加了logs文件夹
+* 添加了数据导入脚本import.php
 
 ### 用户注册接口说明
 

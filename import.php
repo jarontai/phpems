@@ -1,4 +1,6 @@
 <?php
+// 用于导入初始数据的脚本，在安装composer依赖时将自动执行，也可以单独执行
+
 date_default_timezone_set('Asia/Shanghai');
 
 require_once __DIR__ . '/vendor/autoload.php';
