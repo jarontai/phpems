@@ -8,5 +8,10 @@
             "type": "composer",
             "url": "https://packagist.phpcomposer.com"
         }
-    }    
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "@php import.php"
+        ]
+    }      
 }

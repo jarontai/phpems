@@ -3,11 +3,9 @@
 ### 要求
 * php版本 == 5.3
 
-### 安装依赖
-
-```
-php composer.phar install
-```
+### 安装
+1. 拷贝配置模板 .env.example 到 .env，并对其中配置项进行配置
+2. 执行 php composer.phar install ，安装依赖
 
 ### 对PHPEMS代码的改动
 * 修改了启动脚本lib/init.cls.php的make方法
