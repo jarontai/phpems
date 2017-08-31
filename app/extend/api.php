@@ -13,6 +13,7 @@ class app
 		$this->G = $G;
 		$this->ev = $this->G->make('ev');
 		$this->user = $this->G->make('user', 'user');
+		$this->helper = $this->G->make('helper', 'extend');
 	}
 }
 

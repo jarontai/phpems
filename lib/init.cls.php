@@ -67,6 +67,13 @@ class ginkgo
 	//对象工厂
 	public function make($G,$app = NULL)
 	{
+		/****** qrz start ******/
+		// 使用扩展的session类
+		if ($G === 'session' && !$app) {
+			$app = 'extend';
+		}
+		/****** qrz end ******/
+		
 		if($app)return $this->load($G,$app);
 		else
 		{
